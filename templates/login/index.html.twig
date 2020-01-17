@@ -3,13 +3,9 @@
 {% block title %}Hello LoginController!{% endblock %}
 
 {% block body %}
-    <p>Hello this is Navid</p>
     <div id="root"></div>
 
 {% endblock %}
 {% block javascripts %}
-    <script {{ encore_entry_script_tags('login') }}></script>
-{#    <script src="{{ asset('build/runtime.js')}}"></script>#}
-{#    <script src="{{ asset('build/vendors~login.js')}}"></script>#}
-{#    <script src="{{ asset('build/login.js')}}"></script>#}
+    {{ encore_entry_script_tags('login') }}
 {% endblock %}

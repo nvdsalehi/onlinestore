@@ -2,6 +2,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.8.3",
     "@symfony/webpack-encore": "^0.28.2",
+    "axios": "^0.19.1",
     "core-js": "^3.0.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
