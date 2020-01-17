@@ -1,7 +1,7 @@
 security:
     encoders:
         App\Entity\User:
-            algorithm: auto
+            algorithm: bcrypt
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
@@ -21,6 +21,9 @@ security:
                     - App\Security\LoginAuthenticator
             logout:
                 path: app_api_logout
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 2592000 # 30 days
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
