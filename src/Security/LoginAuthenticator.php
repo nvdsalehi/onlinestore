@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,12 +17,15 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class LoginAuthenticator extends AbstractGuardAuthenticator
 {
-    /** @var UserRepository */
+
     private $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    private $passwordEncoder;
+
+    public function __construct(UserRepository $userRepository, UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->userRepository = $userRepository;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function supports(Request $request)
@@ -46,7 +50,7 @@ class LoginAuthenticator extends AbstractGuardAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $user->getPassword() === $credentials['password']
+        return $this->passwordEncoder->isPasswordValid($user, $credentials['password'])
             && $user->getUsername() === $credentials['email'];
     }
 
