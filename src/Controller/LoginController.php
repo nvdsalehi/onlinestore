@@ -6,14 +6,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends AbstractController
 {
     /**
      * @Route("/api/login", name="app_api_login")
-     * @param AuthenticationUtils $authenticationUtils
      * @return Response
      */
     public function loginApi()
@@ -37,7 +35,7 @@ class LoginController extends AbstractController
     public function getUserApi(Security $security)
     {
         $user = $security->getUser();
-        return new JsonResponse(['username' => $user->getUsername(), 'password' => $user->getPassword()]);
+        return $this->json($user, 200, [],['groups' => ['main']]);
     }
 
     /**
