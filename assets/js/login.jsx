@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { render } from 'react-dom';
+import axios from 'axios';
 
 const Root = () => {
   const formData = new FormData();
@@ -7,16 +8,7 @@ const Root = () => {
   formData.append('password', '123');
   useEffect(
     () => {
-      fetch(
-        '/api/login',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      ).then(
-        () => fetch('/api/user', { method: 'GET' }).then((r) => r.json())
-          .then((r) => console.log(r)),
-      );
+      axios.post('/api/login', formData).then((r) => console.log(r)).catch((e) => console.log(e));
     },
     [],
   );
