@@ -1,0 +1,3 @@
+login:
+  exception:
+    email_not_found: "Email not found"
