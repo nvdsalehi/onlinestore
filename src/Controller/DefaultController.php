@@ -15,6 +15,8 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="app_home")
+     * @param EntityManagerInterface $em
+     * @return Response
      */
     public function index(EntityManagerInterface $em)
     {
@@ -22,10 +24,4 @@ class DefaultController extends AbstractController
         return $this->render('base.html.twig');
     }
 
-    /**
-     * @Route("/test2")
-     */
-    public function test(){
-        return new JsonResponse(['navid' => 1, 'ali' => 2]);
-    }
 }
