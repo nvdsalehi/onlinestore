@@ -59,5 +59,14 @@ class LoginController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/admin/test", name="app_admin_test")
+     * @return Response
+     */
+    public function adminTest()
+    {
+        return new Response('<h1>hi</h1>');
+    }
+
 
 }
