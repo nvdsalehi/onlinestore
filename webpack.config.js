@@ -23,7 +23,7 @@ Encore
    * Each entry will result in one JavaScript file (e.g. login.jsx)
    * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
    */
-  .addEntry('login', './assets/js/login.jsx')
+  // .addEntry('login', './assets/js/login.jsx')
   // .addEntry('page1', './assets/js/page1.js')
   // .addEntry('page2', './assets/js/page2.js')
 
@@ -32,8 +32,8 @@ Encore
 
   // will require an extra script tag for runtime.js
   // but, you probably want this, unless you're building a single-page app
-  .enableSingleRuntimeChunk()
-
+  // .enableSingleRuntimeChunk()
+  .disableSingleRuntimeChunk()
   /*
    * FEATURE CONFIG
    *
