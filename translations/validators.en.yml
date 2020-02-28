@@ -1,8 +1,9 @@
-login:
-  exception:
-    email_not_found: "Email not found."
 signup:
   exception:
+    email:
+      blank: "Email should not be blank."
+      format: "Wrong Email Format."
+      duplicate: "This email is already used."
     password:
       blank: "Password should not be blank."
       min_length: "Minimum password length is 5 characters."
