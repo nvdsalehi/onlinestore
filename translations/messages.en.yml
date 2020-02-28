@@ -1,3 +1,6 @@
 login:
   exception:
     email_not_found: "Email not found"
+signup:
+  exception:
+    password_not_match: "The password fields must match."

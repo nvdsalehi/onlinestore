@@ -2,16 +2,18 @@
 
 namespace App\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use App\Entity\User;
+use App\Form\SignUpFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class LoginController extends AbstractController
+class AuthController extends AbstractController
 {
 
     /**
@@ -38,9 +40,36 @@ class LoginController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('login/index.html.twig', [
+        return $this->render('auth/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error
+        ]);
+    }
+
+    /**
+     * @Route("signup", name="app_signup")
+     */
+    public function signUpPage(Request $request, UserPasswordEncoderInterface $passwordEncoder){
+        $user = $this->getUser();
+        if($user){
+            return new RedirectResponse($this->generateUrl('app_user_profile'));
+        }
+
+        $form = $this->createForm(SignUpFormType::class);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            /** @var User $user */
+            $user = $form->getData();
+            $user->setPassword($passwordEncoder->encodePassword(
+                $user,
+                $form['plainPassword']->getData()
+            ));
+            dd($user);
+
+        }
+
+        return $this->render('auth/signup.html.twig', [
+            'signUpForm' => $form->createView()
         ]);
     }
 
